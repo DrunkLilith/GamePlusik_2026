@@ -1,11 +1,11 @@
-namespace GamePlusik_2026
+п»їnamespace GamePlusik_2026
 {
     public partial class FormGame : Form
     {
         int TargetNum = 21;
         int UserNum = 1;
         int CountStep = 0;
-
+        Random rnd = new Random();
 
         public FormGame()
         {
@@ -31,22 +31,44 @@ namespace GamePlusik_2026
             return steps;
         }
 
+        void UpdateLabels()
+        {
+            labelUserNumber.Text = UserNum.ToString();
+            labelCountStep.Text = "РљРѕР»РёС‡РµСЃС‚РІРѕ С€Р°РіРѕРІ: " + CountStep;
+        }
+
+        void ResetGame()
+        {
+            UserNum = 1;
+            CountStep = 0;
+            UpdateLabels();
+        }
+
+        void CheckResult()
+        {
+            if (UserNum == TargetNum)
+            {
+                int optimum = Optimum(TargetNum);
+                if (CountStep == optimum)
+                    MessageBox.Show("Р’С‹РёРіСЂР°Р» Р·Р° РѕРїС‚РёРјР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ С€Р°РіРѕРІ!");
+                else
+                    MessageBox.Show("Р’С‹РёРіСЂР°Р», РЅРѕ РјРѕР¶РЅРѕ Р·Р° РјРµРЅСЊС€РµРµ С‡РёСЃР»Рѕ С€Р°РіРѕРІ!\nРћРїС‚РёРјР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ С€Р°РіРѕРІ: " + optimum);
+                ResetGame();
+            }
+            else if (UserNum > TargetNum)
+            {
+                MessageBox.Show("РџСЂРѕРёРіСЂР°Р»!");
+                ResetGame();
+            }
+        }
+
         private void pictureBoxPlus_Click(object sender, EventArgs e)
         {
             //UserNum = UserNum + 1;
             UserNum++;
             CountStep++;
-            labelUserNumber.Text = UserNum.ToString();
-            labelCountStep.Text = CountStep.ToString();
-            if (UserNum == TargetNum)
-            {
-                if (CountStep == Optimum(TargetNum))
-                    MessageBox.Show("Выиграл");
-                else
-                    MessageBox.Show("Но можно было быстрее!");
-            }
-            else if (UserNum > TargetNum)
-                MessageBox.Show("Проиграл!");
+            UpdateLabels();
+            CheckResult();
         }
 
         private void pictureBoxMult_Click(object sender, EventArgs e)
@@ -54,17 +76,20 @@ namespace GamePlusik_2026
             //UserNum = UserNum * 2;
             UserNum *= 2;
             CountStep++;
-            labelUserNumber.Text = UserNum.ToString();
-            labelCountStep.Text = CountStep.ToString();
-            if (UserNum == TargetNum)
-            {
-                if (CountStep == Optimum(TargetNum))
-                    MessageBox.Show("Выиграл");
-                else
-                    MessageBox.Show("Но можно было быстрее!");
-            }
-            else if (UserNum > TargetNum)
-                MessageBox.Show("Проиграл!");
+            UpdateLabels();
+            CheckResult();
+        }
+
+        private void buttonRestart_Click(object sender, EventArgs e)
+        {
+            ResetGame();
+        }
+
+        private void buttonRandom_Click(object sender, EventArgs e)
+        {
+            TargetNum = rnd.Next(10, 101);
+            labelTarget.Text = TargetNum.ToString();
+            ResetGame();
         }
     }
 }

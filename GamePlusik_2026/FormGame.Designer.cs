@@ -34,6 +34,8 @@
             labelTarget = new Label();
             labelUserNumber = new Label();
             labelCountStep = new Label();
+            buttonRestart = new Button();
+            buttonRandom = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPlus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxMult).BeginInit();
             SuspendLayout();
@@ -91,11 +93,35 @@
             labelCountStep.Text = "Количество шагов: 0";
             labelCountStep.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // buttonRestart
+            // 
+            buttonRestart.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            buttonRestart.Location = new Point(115, 350);
+            buttonRestart.Name = "buttonRestart";
+            buttonRestart.Size = new Size(280, 50);
+            buttonRestart.TabIndex = 5;
+            buttonRestart.Text = "Начать сначала";
+            buttonRestart.UseVisualStyleBackColor = true;
+            buttonRestart.Click += buttonRestart_Click;
+            // 
+            // buttonRandom
+            // 
+            buttonRandom.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            buttonRandom.Location = new Point(412, 350);
+            buttonRandom.Name = "buttonRandom";
+            buttonRandom.Size = new Size(280, 50);
+            buttonRandom.TabIndex = 6;
+            buttonRandom.Text = "Задать случайное число";
+            buttonRandom.UseVisualStyleBackColor = true;
+            buttonRandom.Click += buttonRandom_Click;
+            // 
             // FormGame
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(buttonRandom);
+            Controls.Add(buttonRestart);
             Controls.Add(labelCountStep);
             Controls.Add(labelUserNumber);
             Controls.Add(labelTarget);
@@ -116,5 +142,7 @@
         private Label labelTarget;
         private Label labelUserNumber;
         private Label labelCountStep;
+        private Button buttonRestart;
+        private Button buttonRandom;
     }
 }
